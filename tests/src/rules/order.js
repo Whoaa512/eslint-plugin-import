@@ -778,6 +778,55 @@ ruleTester.run('order', rule, {
         ],
       }),
     ]),
+
+    // Internal modules
+    test({
+      code: `
+        var path = require('path');
+        var async = require('async');
+        var internalMod = require('internalMods/myMod');
+        var secondInternalMod = require('~/myMod2');
+        var parent = require('../parent');
+        var sibling = require('./foo');
+        var index = require('./');
+      `,
+      options: [{ groups: [
+        'builtin',
+        'external',
+        'internal',
+        'parent',
+        'sibling',
+        'index',
+      ] }],
+    }),
+    // Internal modules with newlines
+    test({
+      code: `
+        var path = require('path');
+
+        var async = require('async');
+
+        var internalMod = require('internalMods/myMod');
+        var secondInternalMod = require('~/myMod2');
+
+        var parent = require('../parent');
+
+        var sibling = require('./foo');
+
+        var index = require('./');
+      `,
+      options: [{
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+        ],
+        'newlines-between': 'always',
+      }],
+    }),
   ],
   invalid: [
     // builtin before external module (require)
@@ -2299,6 +2348,32 @@ context('TypeScript', function () {
             },
             parserConfig,
           ),
+          // Internal modules
+          test({
+            code: `
+              var path = require('path');
+              var async = require('async');
+              var internalMod = require('internalMods/myMod');
+              var parent = require('../parent');
+              var secondInternalMod = require('~/myMod2');
+              var sibling = require('./foo');
+              var index = require('./');
+            `,
+            options: [{ groups: [
+              'builtin',
+              'external',
+              'internal',
+              'parent',
+              'sibling',
+              'index',
+            ] }],
+            errors: [
+              {
+                ruleId: 'order',
+                message: '`~/myMod2` import should occur before import of `../parent`',
+              },
+            ],
+          }),
         ],
       });
     });
