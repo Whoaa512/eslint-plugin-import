@@ -26,6 +26,7 @@
     "ci-test": "eslint ./src && gulp pretest && cross-env NODE_PATH=./lib istanbul cover --report lcovonly --dir reports/coverage _mocha tests/lib/ -- --recursive --reporter dot",
     "debug": "cross-env NODE_PATH=./lib mocha debug --recursive --reporter dot tests/lib/",
     "prepublish": "gulp prepublish",
+    "preinstall": "gulp prepublish",
     "coveralls": "nyc report --reporter lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
