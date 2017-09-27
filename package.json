@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-import",
+  "name": "@fictiv/eslint-plugin-import",
   "version": "2.7.0",
   "description": "Import with sanity.",
   "engines": {
