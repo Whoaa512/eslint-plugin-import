@@ -1,3 +1,7 @@
+## Important this fork exposes the fix in [#914](https://github.com/benmosher/eslint-plugin-import/pull/914)
+
+
+
 # eslint-plugin-import
 
 [![build status](https://travis-ci.org/benmosher/eslint-plugin-import.svg?branch=master)](https://travis-ci.org/benmosher/eslint-plugin-import)
